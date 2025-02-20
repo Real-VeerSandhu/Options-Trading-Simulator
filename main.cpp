@@ -6,6 +6,14 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <thread> // For sleep
+
+#ifdef _WIN32
+#define CLEAR_SCREEN "cls"
+#else
+#define CLEAR_SCREEN "clear"
+#endif
+
 // Base Option class
 class Option
 {
@@ -110,21 +118,6 @@ public:
     }
 };
 
-// int main()
-// {
-//     CallOption call(100, 1);
-//     PutOption put(100, 1);
-
-//     double spotPrice = 105;
-//     double interestRate = 0.05;
-//     double volatility = 0.2;
-
-//     Market::executeTrade(call, spotPrice, interestRate, volatility, "BUY");
-//     Market::executeTrade(put, spotPrice, interestRate, volatility, "SELL");
-
-//     return 0;
-// }
-
 // ASCII Graph function
 void drawGraph(const std::vector<double> &prices)
 {
@@ -145,8 +138,35 @@ void drawGraph(const std::vector<double> &prices)
     }
 }
 
-// Simulation function
+// Live Simulation Function
 void runSimulation()
+{
+    srand(time(0));
+    double spotPrice = 100;
+    double interestRate = 0.05;
+    double volatility = 0.2;
+    std::vector<double> priceHistory;
+
+    for (int i = 0; i < 50; ++i)
+    {
+        std::system(CLEAR_SCREEN);
+
+        CallOption call(100, 1);
+        PutOption put(100, 1);
+
+        Market::executeTrade(call, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
+        Market::executeTrade(put, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
+
+        spotPrice += ((rand() % 200) - 100) / 100.0; // Random market movement
+        priceHistory.push_back(spotPrice);
+
+        drawGraph(priceHistory);
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+}
+
+// Simulation function
+void runSimulation2()
 {
     srand(time(0));
     double spotPrice = 100;
@@ -170,6 +190,6 @@ void runSimulation()
 
 int main()
 {
-    runSimulation();
+    runSimulation2();
     return 0;
 }
