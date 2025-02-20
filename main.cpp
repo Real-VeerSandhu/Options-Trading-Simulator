@@ -109,12 +109,18 @@ public:
 class Market
 {
 public:
-    static void executeTrade(const Option &opt, double spot, double rate, double volatility, std::string action)
+    static void executeTrade(const Option &opt, double spot, double rate, double volatility, std::string action, int &buyCount, int &sellCount, double &totalChange)
     {
         double price = opt.price(spot, rate, volatility);
         Trade trade(opt.getType(), opt.getStrikePrice(), opt.getExpiration(), price, action);
         FileManager::saveTrade(trade);
         std::cout << "Trade executed: " << action << " " << opt.getType() << " at " << price << "\n";
+
+        if (action == "BUY")
+            buyCount++;
+        else
+            sellCount++;
+        totalChange += price;
     }
 };
 
@@ -138,31 +144,48 @@ void drawGraph(const std::vector<double> &prices)
     }
 }
 
-// Live Simulation Function
+// Simulation statistics function
+void printSimulationStats(int buyCount, int sellCount, double totalChange, int numSteps)
+{
+    std::cout << "\nSimulation Statistics:\n";
+    std::cout << "Total Trades Executed: " << (buyCount + sellCount) << "\n";
+    std::cout << "Total Buys: " << buyCount << "\n";
+    std::cout << "Total Sells: " << sellCount << "\n";
+    std::cout << "Total Price Change Over Time: " << totalChange << "\n";
+    std::cout << "Total Steps: " << numSteps << "\n";
+}
+
+// Live Simulation Function GRAPHED
 void runSimulation()
 {
     srand(time(0));
     double spotPrice = 100;
     double interestRate = 0.05;
     double volatility = 0.2;
+
+    int numSteps = 20;
+    int buyCount = 0, sellCount = 0;
+    double totalChange = 0;
     std::vector<double> priceHistory;
 
-    for (int i = 0; i < 50; ++i)
+    for (int i = 0; i < numSteps; ++i)
     {
         std::system(CLEAR_SCREEN);
 
         CallOption call(100, 1);
         PutOption put(100, 1);
 
-        Market::executeTrade(call, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
-        Market::executeTrade(put, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
+        Market::executeTrade(call, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL", buyCount, sellCount, totalChange);
+        Market::executeTrade(put, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL", buyCount, sellCount, totalChange);
 
         spotPrice += ((rand() % 200) - 100) / 100.0; // Random market movement
         priceHistory.push_back(spotPrice);
 
         drawGraph(priceHistory);
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
+
+    printSimulationStats(buyCount, sellCount, totalChange, numSteps);
 }
 
 // Simulation function
@@ -174,13 +197,16 @@ void runSimulation2()
     double volatility = 0.2;
     std::vector<double> priceHistory;
 
+    int buyCount = 0, sellCount = 0;
+    double totalChange = 0;
+
     for (int i = 0; i < 50; ++i)
     {
         CallOption call(100, 1);
         PutOption put(100, 1);
 
-        Market::executeTrade(call, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
-        Market::executeTrade(put, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
+        Market::executeTrade(call, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL", buyCount, sellCount, totalChange);
+        Market::executeTrade(put, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL", buyCount, sellCount, totalChange);
 
         spotPrice += ((rand() % 200) - 100) / 100.0; // Random market movement
         priceHistory.push_back(spotPrice);
@@ -190,6 +216,6 @@ void runSimulation2()
 
 int main()
 {
-    runSimulation2();
+    runSimulation();
     return 0;
 }
