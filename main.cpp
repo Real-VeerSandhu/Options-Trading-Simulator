@@ -186,8 +186,8 @@ void runSimulation(double spotPrice = 100, double interestRate = 0.05, double vo
     {
         std::system(CLEAR_SCREEN);
 
-        CallOption call(100, 1);
-        PutOption put(100, 1);
+        CallOption call(spotPrice, 1);
+        PutOption put(spotPrice, 1);
 
         Market::executeTrade(call, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL", buyCount, sellCount, totalChange);
         Market::executeTrade(put, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL", buyCount, sellCount, totalChange);
@@ -257,7 +257,7 @@ void startSimulation(double spotPrice, double interestRate, double volatility, i
     {
         std::cout << "\nStarting...\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(80));
-        runSimulation();
+        runSimulation(spotPrice, interestRate, volatility, numSteps, runDelay);
     }
     else
     {

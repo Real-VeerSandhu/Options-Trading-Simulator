@@ -3,6 +3,7 @@
         "*.cc": "cpp",
         "iosfwd": "cpp",
         "iostream": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "string": "cpp"
     }
 }
