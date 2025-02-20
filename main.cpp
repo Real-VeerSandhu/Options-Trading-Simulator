@@ -257,7 +257,7 @@ void startSimulation(double spotPrice, double interestRate, double volatility, i
     {
         std::cout << "\nStarting...\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(80));
-        runSimulation();
+        runSimulation(spotPrice, interestRate, volatility, numSteps, runDelay);
     }
     else
     {
