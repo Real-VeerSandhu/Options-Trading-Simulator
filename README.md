@@ -1,6 +1,7 @@
 # Advanced Options Trading Simulator
 ## High-Performance C++ Implementation with Modern Design Patterns
 This project implements a sophisticated options trading simulator utilizing advanced C++ features, low-level optimizations, and modern software engineering principles. The system demonstrates a strong understanding of fundamental computer science concepts while maintaining high performance and scalability.
+[![Demo Video](demo.png)](https://drive.google.com/file/d/1102CKByXHgK7wWjLVIpOTMXapoVuWG_o/view?usp=drive_link)
 
 ## Key Technical Features
 ### Low-Level Optimizations
