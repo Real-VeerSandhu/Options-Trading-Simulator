@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <thread> // For sleep
+#include <iomanip>
 
 #ifdef _WIN32
 #define CLEAR_SCREEN "cls"
@@ -124,6 +125,18 @@ public:
     }
 };
 
+void printSimulationParams(double spotPrice, double interestRate, double volatility, int numSteps, int runDelay)
+{
+    // Display Parameters
+    std::cout << "\nSimulation Input Parameters:\n";
+    std::cout << "=====================\n";
+    std::cout << "Spot Price:       " << std::fixed << std::setprecision(2) << spotPrice << "\n";
+    std::cout << "Interest Rate:    " << std::fixed << std::setprecision(4) << interestRate << "\n";
+    std::cout << "Volatility:       " << std::fixed << std::setprecision(4) << volatility << "\n";
+    std::cout << "Number of Steps:  " << numSteps << "\n";
+    std::cout << "Run Delay:        " << runDelay << " seconds\n\n";
+}
+
 // ASCII Graph function
 void drawGraph(const std::vector<double> &prices)
 {
@@ -148,6 +161,7 @@ void drawGraph(const std::vector<double> &prices)
 void printSimulationStats(int buyCount, int sellCount, double totalChange, int numSteps)
 {
     std::cout << "\nSimulation Statistics:\n";
+    std::cout << "=====================\n";
     std::cout << "Total Trades Executed: " << (buyCount + sellCount) << "\n";
     std::cout << "Total Buys: " << buyCount << "\n";
     std::cout << "Total Sells: " << sellCount << "\n";
@@ -156,14 +170,14 @@ void printSimulationStats(int buyCount, int sellCount, double totalChange, int n
 }
 
 // Live Simulation Function GRAPHED
-void runSimulation()
+void runSimulation(double spotPrice = 100, double interestRate = 0.05, double volatility = 0.2, int numSteps = 20, int runDelay = 200)
 {
     srand(time(0));
-    double spotPrice = 100;
-    double interestRate = 0.05;
-    double volatility = 0.2;
+    // double spotPrice = 100;
+    // double interestRate = 0.05;
+    // double volatility = 0.2;
 
-    int numSteps = 20;
+    // int numSteps = 20;
     int buyCount = 0, sellCount = 0;
     double totalChange = 0;
     std::vector<double> priceHistory;
@@ -182,7 +196,7 @@ void runSimulation()
         priceHistory.push_back(spotPrice);
 
         drawGraph(priceHistory);
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::this_thread::sleep_for(std::chrono::milliseconds(runDelay));
     }
 
     printSimulationStats(buyCount, sellCount, totalChange, numSteps);
@@ -214,8 +228,97 @@ void runSimulation2()
     drawGraph(priceHistory);
 }
 
-int main()
+void printTitle()
 {
-    runSimulation();
+    std::string title = R"(
+  ____        __   _                    ______               __ _              ____ _              __       __   _           
+ / __ \ ___  / /_ (_)___   ___   ___   /_  __/____ ___ _ ___/ /(_)___  ___ _  / __/(_)__ _  __ __ / /___ _ / /_ (_)___   ___ 
+/ /_/ // _ \/ __// // _ \ / _ \ (_-<    / /  / __// _ `// _  // // _ \/ _ `/ _\ \ / //  ' \/ // // // _ `// __// // _ \ / _ \
+\____// .__/\__//_/ \___//_//_//___/   /_/  /_/   \_,_/ \_,_//_//_//_/\_, / /___//_//_/_/_/\_,_//_/ \_,_/ \__//_/ \___//_//_/
+     /_/                                                             /___/                                                                                                                              
+    )";
+
+    std::cout << title << "\n";
+    std::cout << "#" << std::string(40, '=') << "#\n";
+}
+
+void startSimulation(double spotPrice, double interestRate, double volatility, int numSteps, int runDelay)
+{
+    // Display Parameters
+    printSimulationParams(spotPrice, interestRate, volatility, numSteps, runDelay);
+    std::cout << "#" << std::string(40, '=') << "#\n";
+
+    // Ask for confirmation before starting the simulation
+    char userInput;
+    std::cout << "\nConfirm parameters. Do you wish to start the simulation? (y/n): ";
+    std::cin >> userInput;
+
+    if (userInput == 'y' || userInput == 'Y')
+    {
+        std::cout << "\nStarting...\n";
+        std::this_thread::sleep_for(std::chrono::milliseconds(80));
+        runSimulation();
+    }
+    else
+    {
+        std::cout << "\nSimulation aborted.\n";
+    }
+    printSimulationParams(spotPrice, interestRate, volatility, numSteps, runDelay);
+}
+
+int main(int argc, char *argv[])
+{
+    // Default values
+    double spotPrice = 100;
+    double interestRate = 0.05;
+    double volatility = 0.2;
+    int numSteps = 20;
+    int runDelay = 1;
+
+    printTitle();
+
+    // Parse command-line arguments if provided, else ask for input
+    if (argc > 1)
+        spotPrice = std::stod(argv[1]);
+    else
+    {
+        std::cout << "Enter Spot Price: ";
+        std::cin >> spotPrice;
+    }
+
+    if (argc > 2)
+        interestRate = std::stod(argv[2]);
+    else
+    {
+        std::cout << "Enter Interest Rate: ";
+        std::cin >> interestRate;
+    }
+
+    if (argc > 3)
+        volatility = std::stod(argv[3]);
+    else
+    {
+        std::cout << "Enter Volatility: ";
+        std::cin >> volatility;
+    }
+
+    if (argc > 4)
+        numSteps = std::stoi(argv[4]);
+    else
+    {
+        std::cout << "Enter Number of Steps: ";
+        std::cin >> numSteps;
+    }
+
+    if (argc > 5)
+        runDelay = std::abs(std::stoi(argv[5])); // Ensure positive value
+    else
+    {
+        std::cout << "Enter Run Delay (seconds): ";
+        std::cin >> runDelay;
+        runDelay = std::abs(runDelay);
+    }
+
+    startSimulation(spotPrice, interestRate, volatility, numSteps, runDelay);
     return 0;
 }
