@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <thread> // For sleep
+#include <chrono>
 
 #ifdef _WIN32
 #define CLEAR_SCREEN "cls"
@@ -188,8 +189,42 @@ void runSimulation2()
     drawGraph(priceHistory);
 }
 
+// Simulation function
+void runSimulationLive()
+{
+    srand(time(0));
+    double spotPrice, interestRate, volatility;
+    int numSteps;
+
+    std::cout << "Enter initial spot price: ";
+    std::cin >> spotPrice;
+    std::cout << "Enter interest rate: ";
+    std::cin >> interestRate;
+    std::cout << "Enter volatility: ";
+    std::cin >> volatility;
+    std::cout << "Enter number of steps: ";
+    std::cin >> numSteps;
+
+    std::vector<double> priceHistory;
+    for (int i = 0; i < numSteps; ++i)
+    {
+        CallOption call(100, 1);
+        PutOption put(100, 1);
+
+        Market::executeTrade(call, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
+        Market::executeTrade(put, spotPrice, interestRate, volatility, rand() % 2 ? "BUY" : "SELL");
+
+        spotPrice += ((rand() % 200) - 100) / 100.0; // Random market movement
+        priceHistory.push_back(spotPrice);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        system("clear");
+        drawGraph(priceHistory);
+    }
+}
+
 int main()
 {
-    runSimulation2();
+    runSimulationLive();
     return 0;
 }
