@@ -1,6 +1,6 @@
 # Advanced Options Trading Simulator
 ## High-Performance C++ Implementation with Modern Design Patterns
-This project implements a sophisticated options trading simulator utilizing advanced C++ features, low-level optimizations, and modern software engineering principles. The system demonstrates mastery of fundamental computer science concepts while maintaining high performance and scalability.
+This project implements a sophisticated options trading simulator utilizing advanced C++ features, low-level optimizations, and modern software engineering principles. The system demonstrates a strong understanding of fundamental computer science concepts while maintaining high performance and scalability.
 ## Key Technical Features
 ### Low-Level Optimizations
 - Custom memory pool allocator for rapid option object creation/destruction
@@ -28,3 +28,5 @@ This project implements a sophisticated options trading simulator utilizing adva
 - Sub-microsecond trade execution latency
 - Lock-free concurrent updates
 - Minimal cache misses through strategic memory alignment
+### Motivation
+Having gained significant experience with C++ through my computer science courses at the University of Waterloo, and during my time as a Software Engineering intern at a global financial institution, I was inspired to explore the world of derivatives from a software engineering perspective. My strong foundation in statistics and probability, combined with the practical experience of working on data-driven financial systems, motivated me to tackle the complexities of options trading simulation. This project allowed me to leverage my knowledge of low-level computing, while diving deeper into modern C++ features and performance optimization, giving me a hands-on understanding of the intricacies involved in high-frequency trading and financial modeling.
