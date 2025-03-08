@@ -1,6 +1,6 @@
 # Advanced Options Trading Simulator
-## High-Performance C++ Implementation with Modern Design Patterns
-This project implements a sophisticated options trading simulator utilizing advanced C++ features, low-level optimizations, and modern software engineering principles. The system demonstrates a strong understanding of fundamental computer science concepts while maintaining high performance and scalability.
+- This project implements an options trading simulator utilizing advanced C++ features, low-level optimizations, and modern software engineering principles. 
+
 [![Demo Video](demo.png)](https://drive.google.com/file/d/1EG-nMxL1JoQjoWkMg6FzQ_tXgJCZhdnA/view?usp=sharing)
 
 ## Key Technical Features
@@ -31,4 +31,4 @@ This project implements a sophisticated options trading simulator utilizing adva
 - Lock-free concurrent updates
 - Minimal cache misses through strategic memory alignment
 ### Motivation
-Having gained significant experience with C++ through my computer science courses at the University of Waterloo, and during my time as a Software Engineering Intern at a global financial institution, I was inspired to explore the world of derivatives from a software engineering perspective. My strong foundation in statistics and probability, combined with the practical experience of working on data-driven financial systems, motivated me to tackle the complexities of options trading simulation. This project allowed me to leverage my knowledge of low-level computing, while diving deeper into modern C++ features and performance optimization, giving me a hands-on understanding of the intricacies involved in high-frequency trading and financial modeling.
+Having gained significant experience with C++ through my computer science courses at the University of Waterloo, and being exposed to financal markets as a Software Engineering Intern at a Scotiabank Global Wealth, I was inspired to explore the world of derivatives from a technical perspective. This project allowed me to leverage my knowledge of low-level computing and probability while diving deeper into modern C++ features and performance optimization, providing me with an introduction to the development style used in high-frequency trading.
