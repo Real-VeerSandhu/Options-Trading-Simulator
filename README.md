@@ -1,5 +1,5 @@
-# Advanced Options Trading Simulator
-- This project implements an options trading simulator utilizing advanced C++ features, low-level optimizations, and modern software engineering principles. 
+# Options Trading Simulator
+This project is an advanced C++ options trading simulator, optimized for high-performance computation and modern software engineering practices. It features low-level optimizations, multi-threading, and efficient memory management.
 
 [![Demo Video](demo.png)](https://drive.google.com/file/d/1EG-nMxL1JoQjoWkMg6FzQ_tXgJCZhdnA/view?usp=sharing)
 
@@ -31,4 +31,4 @@
 - Lock-free concurrent updates
 - Minimal cache misses through strategic memory alignment
 ### Motivation
-Having gained significant experience with C++ through my computer science courses at the University of Waterloo, and being exposed to financal markets as a Software Engineering Intern at a Scotiabank Global Wealth, I was inspired to explore the world of derivatives from a technical perspective. This project allowed me to leverage my knowledge of low-level computing and probability while diving deeper into modern C++ features and performance optimization, providing me with an introduction to the development style used in high-frequency trading.
+Having gained significant experience with C++ through my computer science courses at the University of Waterloo, and being exposed to financal markets as a Software Engineering Intern at a Scotiabank Global Wealth, I was inspired to explore the world of derivatives from a technical perspective. This project allowed me to apply my knowledge of low-level computing and probability to a high-frequency trading application, while learning about modern C++ features and performance optimization.
