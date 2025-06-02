@@ -1,4 +1,5 @@
 # Options Trading Simulator
+## Overview
 This project is a high-performance C++ options trading simulator, optimized for high-performance computation and modern software engineering practices. It features low-level optimizations, multi-threading, and efficient memory management.
 
 [![Demo Video](demo.png)](https://drive.google.com/file/d/1EG-nMxL1JoQjoWkMg6FzQ_tXgJCZhdnA/view?usp=sharing)
